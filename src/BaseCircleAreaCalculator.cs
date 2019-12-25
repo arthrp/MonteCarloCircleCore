@@ -5,6 +5,4 @@ public abstract class BaseCircleAreaCalculator
     {
         _iterations = iterations;
     }
-
-    public abstract double GetArea(int radius);
 }
