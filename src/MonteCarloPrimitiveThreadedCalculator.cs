@@ -4,11 +4,11 @@ using System.Collections.Generic;
 using System.Threading;
 
 //Error-prone messy old-style threading
-public class MonteCarloPrimitiveThreadedCalculator : BaseCircleAreaCalculator
+public class MonteCarloPrimitiveThreadedCalculator : BaseCircleAreaCalculator, ICircleAreaCalculator
 {
     public MonteCarloPrimitiveThreadedCalculator(int iterations) : base(iterations) {}
 
-    public override double GetArea(int radius)
+    public double GetArea(int radius)
     {
         int iterations = _iterations;
         var pointsInCircleBag = new ConcurrentBag<int>();

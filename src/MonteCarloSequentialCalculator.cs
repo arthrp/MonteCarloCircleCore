@@ -3,12 +3,12 @@ using System.Diagnostics;
 
 namespace MonteCarloCircleCore
 {
-    public class MonteCarloSequentialCalculator : BaseCircleAreaCalculator
+    public class MonteCarloSequentialCalculator : BaseCircleAreaCalculator, ICircleAreaCalculator
     {
         private readonly Random _random = new Random();
         public MonteCarloSequentialCalculator(int iterations) : base(iterations) {}
 
-        public override double GetArea(int radius)
+        public double GetArea(int radius)
         {
             int iterations = _iterations;
             int pointsInCircle = 0;

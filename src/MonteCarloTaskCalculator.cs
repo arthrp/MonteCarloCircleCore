@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 
-public class MonteCarloTaskCalculator : BaseCircleAreaCalculator
+public class MonteCarloTaskCalculator : BaseCircleAreaCalculator, ICircleAreaCalculator
 {
     public MonteCarloTaskCalculator(int iterations) : base(iterations) {}
 
-    public override double GetArea(int radius)
+    public double GetArea(int radius)
     {
         int iterations = _iterations;
         int area = (radius*2) * (radius*2);
