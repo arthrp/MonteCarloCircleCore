@@ -3,13 +3,14 @@ using System.Diagnostics;
 
 namespace MonteCarloCircleCore
 {
-    public class MonteCarloSequentialCalculator : ICircleAreaCalculator
+    public class MonteCarloSequentialCalculator : BaseCircleAreaCalculator
     {
         private readonly Random _random = new Random();
+        public MonteCarloSequentialCalculator(int iterations) : base(iterations) {}
 
-        public double GetArea(int radius)
+        public override double GetArea(int radius)
         {
-            int iterations = 100000;
+            int iterations = _iterations;
             int pointsInCircle = 0;
             int area = (radius*2) * (radius*2);
             double circleCenterX = (double)radius;
@@ -32,6 +33,16 @@ namespace MonteCarloCircleCore
 
             Console.WriteLine($"{ratio}");
             return ratio * area;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        public override string ToString()
+        {
+            return base.ToString();
         }
 
         private bool IsPointInCircle(double x, double y, double circleCenterX, double circleCenterY, double radius)
