@@ -10,7 +10,7 @@ public class MonteCarloTaskCalculator : BaseCircleAreaCalculator, ICircleAreaCal
     public double GetArea(int radius)
     {
         int iterations = _iterations;
-        int area = (radius*2) * (radius*2);
+        int rectangleArea = (radius*2) * (radius*2);
         const int taskCount = 4;
         int pointsPerTask = iterations / taskCount;
         var taskArr = new List<Task<int>>();
@@ -21,11 +21,12 @@ public class MonteCarloTaskCalculator : BaseCircleAreaCalculator, ICircleAreaCal
             taskArr.Add(task);
         }
 
+        //Task is execulted when Result is read (and calling thread blocked until Result is available)
         int totalPointsInCircle = taskArr.Sum(x => x.Result);
 
         double ratio = ((double)totalPointsInCircle / (double)iterations);
         Console.WriteLine($"{ratio}");
-        return ratio * area;
+        return ratio * rectangleArea;
     }
 
     private int GetPointsInCircle(int pointsPerTask, int radius)
