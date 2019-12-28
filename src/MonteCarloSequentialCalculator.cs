@@ -35,16 +35,6 @@ namespace MonteCarloCircleCore
             return ratio * area;
         }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
-
-        public override string ToString()
-        {
-            return base.ToString();
-        }
-
         private bool IsPointInCircle(double x, double y, double circleCenterX, double circleCenterY, double radius)
         {
             return Math.Pow((x - circleCenterX), 2) + Math.Pow((y - circleCenterY),2) < Math.Pow(radius,2);
