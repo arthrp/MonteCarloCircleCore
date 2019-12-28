@@ -8,10 +8,10 @@ public class MonteCarloPrimitiveThreadedCalculator : BaseCircleAreaCalculator, I
 {
     public MonteCarloPrimitiveThreadedCalculator(int iterations) : base(iterations) {}
 
+    private volatile int _allPointsInCircle = 0;
     public double GetArea(int radius)
     {
         int iterations = _iterations;
-        var pointsInCircleBag = new ConcurrentBag<int>();
         const int threadCount = 4;
         var threads = new List<Thread>();
 
@@ -35,7 +35,7 @@ public class MonteCarloPrimitiveThreadedCalculator : BaseCircleAreaCalculator, I
                         localPointsInCircle++;
                 }
 
-                pointsInCircleBag.Add(localPointsInCircle);
+                _allPointsInCircle += localPointsInCircle;
             });
 
             threads.Add(thread);
@@ -44,14 +44,14 @@ public class MonteCarloPrimitiveThreadedCalculator : BaseCircleAreaCalculator, I
         threads.ForEach(t => t.Start());
         threads.ForEach(t => t.Join());
 
-        var totalPointsInCircle = 0;
+        // var totalPointsInCircle = 0;
 
-        foreach(var points in pointsInCircleBag)
-        {
-            Console.WriteLine($"Got {points} points");
-            totalPointsInCircle += points;
-        }
-        double ratio = ((double)totalPointsInCircle / (double)iterations);
+        // foreach(var points in pointsInCircleBag)
+        // {
+        //     Console.WriteLine($"Got {points} points");
+        //     totalPointsInCircle += points;
+        // }
+        double ratio = ((double)_allPointsInCircle / (double)iterations);
         Console.WriteLine($"{ratio}");
         return ratio * area;
     }
